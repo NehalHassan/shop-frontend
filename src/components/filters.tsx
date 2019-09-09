@@ -17,7 +17,9 @@ const FilterWrapper = styled.div({
 const Filters = ({
   handleChangeDept,
   handleChangePromo,
-  handleSearchProduct
+  handleSearchProduct,
+  promotions,
+  departments
 }: any) => {
   return(
     <FilterWrapper>
@@ -28,16 +30,16 @@ const Filters = ({
         style={{ width: 200, margin: '10px' }}
       />
 
-      <Select defaultValue="lucy" style={{ width: 200, margin: '10px' }} onChange={handleChangeDept}>
-        <Option value="jack">Jack</Option>
-        <Option value="lucy">Lucy</Option>
-        <Option value="Yiminghe">yiminghe</Option>
+      <Select defaultValue="Departments" style={{ width: 200, margin: '10px' }} onChange={handleChangeDept}>
+        {departments && departments.length && departments.map((dept:any) => (
+          <Option value={dept._id}>{dept.name}</Option>
+        ))}
       </Select>
 
-      <Select defaultValue="lucy" style={{ width: 200, margin: '10px' }} onChange={handleChangePromo}>
-        <Option value="jack">Jack</Option>
-        <Option value="lucy">Lucy</Option>
-        <Option value="Yiminghe">yiminghe</Option>
+      <Select defaultValue="Promotion" style={{ width: 200, margin: '10px' }} onChange={handleChangePromo}>
+        {promotions && promotions.length && promotions.map(
+          (promo:any) => <Option value={promo._id}>{promo.code}</Option>
+        )}
       </Select>
 
     </FilterWrapper>

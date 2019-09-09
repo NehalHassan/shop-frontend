@@ -20,12 +20,16 @@ const App = () => {
           count,
           handleChangeDept,
           handleChangePromo,
-          handleSearchProduct
+          handleSearchProduct,
+          promotions,
+          departments
         }: any) => (
           <>
             <Header>Shop</Header>
 
             <Filters
+              promotions={promotions}
+              departments={departments}
               handleChangeDept={handleChangeDept}
               handleChangePromo={handleChangePromo}
               handleSearchProduct={handleSearchProduct}

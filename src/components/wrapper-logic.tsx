@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import productsApi from '../api/products';
+import departmentsApi from '../api/departments';
+import promotionsApi from '../api/promotions';
 
 const WrapperLogic = ({ render }: any) => {
 
@@ -7,6 +9,8 @@ const WrapperLogic = ({ render }: any) => {
   const [count, setCount] = useState();
   const [currentPage, setCurrentPage] = useState(1)
   const [products, setProducts] = useState();
+  const [promotions, setPromotions] = useState();
+  const [departments, setDepartments] = useState();
 
   // onpagination change
   const handleChangePage = async (page: any) => {
@@ -40,6 +44,15 @@ const WrapperLogic = ({ render }: any) => {
     }
   }, [currentPage]);
 
+  useEffect(() => {
+    departmentsApi.fetchDepartments().then(
+      ({data}) => setDepartments(data)
+    );
+    promotionsApi.fetchPromotions().then(
+      ({data}) => setPromotions(data)
+    );
+  }, []);
+
   const handleChangeDept = (value: String) => {
     console.log(value)
   }
@@ -60,7 +73,9 @@ const WrapperLogic = ({ render }: any) => {
     count,
     handleChangeDept,
     handleChangePromo,
-    handleSearchProduct
+    handleSearchProduct,
+    promotions,
+    departments
   })
 };
 
