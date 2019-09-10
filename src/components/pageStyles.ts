@@ -15,6 +15,7 @@ export const Header = styled.div({
 export const PaginationContainer = styled.div`
   justify-content: center;
   display: flex;
+  margin: 30px 0;
   .rc-pagination-item{
     background: #543F82;
     border-color: #543F82;

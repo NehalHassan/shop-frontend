@@ -7,7 +7,7 @@ interface Price {
 
 export const CardContainer = styled.div({
   background: '#fff',
-  width: '350px',
+  width: 'calc(100%/5)',
   minHeight: '300px',
   borderRadius: '6px',
   border: '1px solid #E1E2E2',
@@ -18,7 +18,7 @@ export const CardContainer = styled.div({
 export const CardHeader = styled.p({
   color: '#543F82',
   borderBottom: '1px solid #E1E2E2',
-  padding: '32px 24px',
+  padding: '18px',
   fontSize: '16px',
   letterSpacing: '1.16px',
   fontWeight: 'bold',
@@ -29,7 +29,7 @@ export const CardHeader = styled.p({
 });
 
 export const Container = styled.div({
-  padding: '32px 32px 0'
+  padding: '14px 14px 0'
 });
 
 export const Tags = styled.span({
@@ -49,7 +49,7 @@ export const SmallText = styled.span({
 export const PriceText = styled.span<Price>(
   {
     color: '#68605D',
-    fontSize: '32px'
+    fontSize: '24px'
   },
   ({ isLineThrough, smallText }) => {
     if (isLineThrough) {

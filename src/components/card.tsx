@@ -4,15 +4,10 @@ import DiscountSection from './discount_section';
 import PromotionTags from './promotion_tag';
 import { CardContainer, CardHeader } from './cardStyles';
 import { ProductContext } from './content';
-
-interface Product {
-  name: String,
-  price: Number,
-  id: String
-};
+import { Product } from '../types';
 
 const Card = () => {
-  const product:any = useContext(ProductContext);
+  const product: Product = useContext(ProductContext);
 
   return (
     <CardContainer>

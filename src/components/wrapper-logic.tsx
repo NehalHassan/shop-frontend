@@ -13,7 +13,7 @@ const WrapperLogic = ({ render }: any) => {
   const [departments, setDepartments] = useState();
 
   // onpagination change
-  const handleChangePage = async (page: any) => {
+  const handleChangePage = async (page: number) => {
     if (page !== currentPage) {
       setCurrentPage(page);
     }

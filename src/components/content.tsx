@@ -1,16 +1,21 @@
 import React, { Suspense, lazy} from 'react';
 import styled from '@emotion/styled';
+import { Product } from '../types';
 
 const Card = lazy(() => import('../components/card'))
 
-export const ProductContext = React.createContext(null)
+export const ProductContext = React.createContext(null);
 
 const ContentWrapper = styled.div({
   display: 'flex',
   justifyContent: 'center'
-})
+});
 
-const Content = ({products}: any) => {
+interface ContentProps {
+  products: Product[];
+}
+
+const Content = ({ products }: ContentProps) => {
 
   return (
     <ContentWrapper>

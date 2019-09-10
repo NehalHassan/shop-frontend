@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { Select, Input } from 'antd';
+import { Promotion, Department } from '../types';
 
 
 const { Search } = Input;
@@ -10,9 +11,16 @@ const { Option } = Select;
 const FilterWrapper = styled.div({
   display: 'flex',
   flexFlow: 'row-reverse',
-  margin: '30px 210px',
+  margin: '30px 7vw',
 })
 
+interface FiltersProps {
+  promotions: Promotion[],
+  departments: Department[],
+  handleChangeDept: (x: string) => void,
+  handleChangePromo: (x: string) => void
+  handleSearchProduct: (x: string) => void
+};
 
 const Filters = ({
   handleChangeDept,
@@ -20,8 +28,10 @@ const Filters = ({
   handleSearchProduct,
   promotions,
   departments
-}: any) => {
+}: FiltersProps) => {
+
   return(
+
     <FilterWrapper>
 
       <Search
@@ -31,18 +41,19 @@ const Filters = ({
       />
 
       <Select defaultValue="Departments" style={{ width: 200, margin: '10px' }} onChange={handleChangeDept}>
-        {departments && departments.length && departments.map((dept:any) => (
+        {departments && departments.length && departments.map((dept: Department) => (
           <Option value={dept._id}>{dept.name}</Option>
         ))}
       </Select>
 
       <Select defaultValue="Promotion" style={{ width: 200, margin: '10px' }} onChange={handleChangePromo}>
         {promotions && promotions.length && promotions.map(
-          (promo:any) => <Option value={promo._id}>{promo.code}</Option>
+          (promo: Promotion) => <Option value={promo._id}>{promo.code}</Option>
         )}
       </Select>
 
     </FilterWrapper>
+
   )
 };
 export default Filters;

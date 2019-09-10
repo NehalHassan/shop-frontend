@@ -4,6 +4,7 @@ import 'rc-pagination/assets/index.css';
 import { Header, PaginationContainer, ContentLoading } from '../components/pageStyles';
 import WrapperLogic from '../components/wrapper-logic';
 import Filters from '../components/filters';
+import { AppProps } from '../types';
 
 const Content = lazy(()=>import('../components/content'));
 
@@ -23,7 +24,7 @@ const App = () => {
           handleSearchProduct,
           promotions,
           departments
-        }: any) => (
+        }: AppProps) => (
           <>
             <Header>Shop</Header>
 
