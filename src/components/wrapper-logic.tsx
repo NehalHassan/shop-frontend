@@ -53,16 +53,28 @@ const WrapperLogic = ({ render }: any) => {
     );
   }, []);
 
-  const handleChangeDept = (value: String) => {
-    console.log(value)
+  const handleChangeDept = async(value: String) => {
+    productsApi.fetchProducts({
+      query: {
+        department_id: value
+      }
+    }).then(res => setProducts(res.data)).catch(err => console.log(err))
   }
 
   const handleChangePromo = (value: String) => {
-    console.log(value)
+    productsApi.fetchProducts({
+      query: {
+        promotion: { '$in': [value] }
+      }
+    }).then(res => setProducts(res.data)).catch(err => console.log(err))
   }
 
   const handleSearchProduct = (value: String) => {
-    console.log(value)
+    productsApi.fetchProducts({
+      query: {
+        name: { $regex: value, $options: 'i' }
+      }
+    }).then(res => setProducts(res.data)).catch(err => console.log(err))
   }
 
   return render({

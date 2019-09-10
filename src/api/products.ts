@@ -1,8 +1,9 @@
 import Api from '../axios';
 
 type Query = {
-  skip: Number,
-  limit: Number
+  skip?: Number,
+  limit?: Number,
+  query?: any
 }
 
 const productsApi = {
