@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import { Select, Input } from 'antd';
@@ -17,18 +17,42 @@ const FilterWrapper = styled.div({
 interface FiltersProps {
   promotions: Promotion[],
   departments: Department[],
-  handleChangeDept: (x: string) => void,
-  handleChangePromo: (x: string) => void
-  handleSearchProduct: (x: string) => void
+  setFilters: (x:string, y:string) => void
 };
 
 const Filters = ({
-  handleChangeDept,
-  handleChangePromo,
-  handleSearchProduct,
+  setFilters,
   promotions,
   departments
 }: FiltersProps) => {
+  const [filters, setFiltersValues] = useState({
+    dept:'Departments',
+    promo:'Promotion'
+  });
+
+  const onChange = (filter: string, value: string) => {
+    switch (filter) {
+      case 'promotions':
+        setFiltersValues({
+          dept: 'Departments',
+          promo: value
+        })
+        break;
+      case 'department':
+        setFiltersValues({
+          dept: value,
+          promo: 'Promotion'
+        })
+        break;
+      case 'search':
+        setFiltersValues({
+          dept: 'Departments',
+          promo: 'Promotion'
+        })
+        break;
+    }
+    setFilters(filter, value);
+  }
 
   return(
 
@@ -36,17 +60,27 @@ const Filters = ({
 
       <Search
         placeholder="input search text"
-        onSearch={handleSearchProduct}
+        onSearch={(e: string) => onChange('search',e)}
         style={{ width: 200, margin: '10px' }}
       />
 
-      <Select defaultValue="Departments" style={{ width: 200, margin: '10px' }} onChange={handleChangeDept}>
+      <Select
+      value={filters.dept}
+        defaultValue="Departments"
+        style={{ width: 200, margin: '10px' }}
+        onChange={(e: string) => onChange('department', e)}
+      >
         {departments && departments.length && departments.map((dept: Department) => (
           <Option value={dept._id}>{dept.name}</Option>
         ))}
       </Select>
 
-      <Select defaultValue="Promotion" style={{ width: 200, margin: '10px' }} onChange={handleChangePromo}>
+      <Select
+        value={filters.promo}
+        defaultValue="Promotion"
+        style={{ width: 200, margin: '10px' }}
+        onChange={(e: string) => onChange('promotions', e)}
+      >
         {promotions && promotions.length && promotions.map(
           (promo: Promotion) => <Option value={promo._id}>{promo.code}</Option>
         )}

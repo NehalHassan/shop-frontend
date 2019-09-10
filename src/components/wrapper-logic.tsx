@@ -11,6 +11,7 @@ const WrapperLogic = ({ render }: any) => {
   const [products, setProducts] = useState();
   const [promotions, setPromotions] = useState();
   const [departments, setDepartments] = useState();
+  const [filterQuery, setFilterQuery] = useState({})
 
   // onpagination change
   const handleChangePage = async (page: number) => {
@@ -21,10 +22,10 @@ const WrapperLogic = ({ render }: any) => {
 
   // fetch all products
   const fetchProducts = async () => {
-    const { data } = await productsApi.fetchProductsCount();
-    setCount(data);
+    const { data } = await productsApi.fetchProductsCount(filterQuery);
     const paginationSet = changePagination();
-    productsApi.fetchProducts(paginationSet)
+    setCount(data);
+    productsApi.fetchProducts({...paginationSet, ...filterQuery})
       .then(res => setProducts(res.data))
       .catch(err => console.log(err));
   };
@@ -42,7 +43,7 @@ const WrapperLogic = ({ render }: any) => {
     if (currentPage) {
       fetchProducts();
     }
-  }, [currentPage]);
+  }, [currentPage, filterQuery]);
 
   useEffect(() => {
     departmentsApi.fetchDepartments().then(
@@ -53,28 +54,28 @@ const WrapperLogic = ({ render }: any) => {
     );
   }, []);
 
-  const handleChangeDept = async(value: String) => {
-    productsApi.fetchProducts({
-      query: {
-        department_id: value
-      }
-    }).then(res => setProducts(res.data)).catch(err => console.log(err))
-  }
-
-  const handleChangePromo = (value: String) => {
-    productsApi.fetchProducts({
-      query: {
-        promotion: { '$in': [value] }
-      }
-    }).then(res => setProducts(res.data)).catch(err => console.log(err))
-  }
-
-  const handleSearchProduct = (value: String) => {
-    productsApi.fetchProducts({
-      query: {
-        name: { $regex: value, $options: 'i' }
-      }
-    }).then(res => setProducts(res.data)).catch(err => console.log(err))
+  const setFilters = (filter: any, value: any) => {
+    let query = {};
+    setCurrentPage(1);
+    switch(filter){
+      case 'promotions':
+        query = {
+          promotions: { '$in': [value] }
+        };
+        break;
+      case 'department':
+        query = {
+          department_id: value
+        }
+        break;
+      case 'search':
+        query = {
+          name: { $regex: value, $options: 'i' }
+        }
+        break;
+    }
+    setFilterQuery({query});
+    fetchProducts()
   }
 
   return render({
@@ -83,11 +84,9 @@ const WrapperLogic = ({ render }: any) => {
     handleChangePage,
     currentPage,
     count,
-    handleChangeDept,
-    handleChangePromo,
-    handleSearchProduct,
     promotions,
-    departments
+    departments,
+    setFilters
   })
 };
 

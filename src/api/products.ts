@@ -7,7 +7,7 @@ type Query = {
 }
 
 const productsApi = {
-  fetchProductsCount: () => Api.get('/products/count'),
+  fetchProductsCount: (query: Query) => Api.post('/products/count', query),
   fetchProducts: (query: Query) => Api.post('/products', query),
 };
 

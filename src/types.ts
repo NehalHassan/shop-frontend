@@ -4,9 +4,7 @@ export interface AppProps {
   handleChangePage: (x: number) => void,
   currentPage: number,
   count: number,
-  handleChangeDept: (x: String) => void,
-  handleChangePromo: (x: String) => void,
-  handleSearchProduct: (x: String) => void,
+  setFilters: (x:string,y:string) => void,
   promotions: Promotion[],
   departments: Department[]
 };

@@ -19,11 +19,9 @@ const App = () => {
           handleChangePage,
           currentPage,
           count,
-          handleChangeDept,
-          handleChangePromo,
-          handleSearchProduct,
           promotions,
-          departments
+          departments,
+          setFilters
         }: AppProps) => (
           <>
             <Header>Shop</Header>
@@ -31,9 +29,7 @@ const App = () => {
             <Filters
               promotions={promotions}
               departments={departments}
-              handleChangeDept={handleChangeDept}
-              handleChangePromo={handleChangePromo}
-              handleSearchProduct={handleSearchProduct}
+              setFilters={setFilters}
             />
 
             <Suspense fallback={<ContentLoading>loading ...</ContentLoading>}>
