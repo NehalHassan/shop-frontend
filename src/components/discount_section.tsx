@@ -1,16 +1,14 @@
-import React from 'react';
-import { Container, SmallText, PriceText } from './cardStyles';
+import React, { useContext } from 'react';
+import { Container, SmallText } from './cardStyles';
+import { ProductContext } from './content';
 
 const DiscountSection = () => {
+  const product: any = useContext(ProductContext);
   return (
     <>
       <Container>
-        <SmallText>discount:</SmallText>
-        <PriceText smallText={true}>10 % </PriceText>
-      </Container>
-      <Container>
         <SmallText>department:</SmallText>
-        <SmallText>beeb </SmallText>
+        <SmallText>{product.department_id.name}</SmallText>
       </Container>
     </>
   );

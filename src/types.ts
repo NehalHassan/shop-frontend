@@ -1,18 +1,8 @@
-export interface AppProps {
-  products: Product[],
-  pageSize: number,
-  handleChangePage: (x: number) => void,
-  currentPage: number,
-  count: number,
-  setFilters: (x:string,y:string) => void,
-  promotions: Promotion[],
-  departments: Department[]
-};
-
 export interface Product {
   _id: String,
   name: String,
-  price: number
+  price: number,
+  promotions?: Promotion[]
 };
 
 export interface Promotion {

@@ -56,3 +56,13 @@ export const ContentLoading = styled.div({
   letterSpacing: '8px',
   color: '#543F82'
 });
+
+export const EmptyState = styled.p({
+  textAlign: 'center',
+  fontSize: '24px',
+  letterSpacing: '2px',
+  background: '#fdffcd',
+  padding: '10px',
+  margin: '20px',
+  borderRadius: '10px'
+})

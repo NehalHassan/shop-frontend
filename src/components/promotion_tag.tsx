@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Container, Tags } from './cardStyles';
+import { ProductContext } from './content';
+import { Product } from '../types';
 
 const PromotionTags = () => {
+  const product: Product = useContext(ProductContext);
+
   return (
     <Container>
-      <Tags>desc01</Tags>
-      <Tags>desc02</Tags>
+      {product.promotions.map(
+        (promo: any) => <Tags key={promo._id}>{promo.code}</Tags>
+      )}
     </Container>
   );
 };

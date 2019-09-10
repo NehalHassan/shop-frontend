@@ -1,12 +1,22 @@
 import React, { lazy, Suspense }from 'react';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
-import { Header, PaginationContainer, ContentLoading } from '../components/pageStyles';
+import { Header, PaginationContainer, ContentLoading, EmptyState } from '../components/pageStyles';
 import WrapperLogic from '../components/wrapper-logic';
 import Filters from '../components/filters';
-import { AppProps } from '../types';
+import { Product, Promotion, Department } from '../types';
 
 const Content = lazy(()=>import('../components/content'));
+export interface AppProps {
+  products: Product[],
+  pageSize: number,
+  handleChangePage: (x: number) => void,
+  currentPage: number,
+  count: number,
+  setFilters: (x: string, y: string) => void,
+  promotions: Promotion[],
+  departments: Department[]
+};
 
 const App = () => {
 
@@ -36,7 +46,7 @@ const App = () => {
               <Content products={products}/>
             </Suspense>
 
-            <PaginationContainer>
+            {count>0 && <PaginationContainer>
               <Pagination
                 defaultPageSize={pageSize}
                 onChange={handleChangePage}
@@ -44,7 +54,9 @@ const App = () => {
                 total={count}
                 style={{ display: 'inline-flex' }}
               />
-            </PaginationContainer>
+            </PaginationContainer>}
+
+            {count<=0 && <EmptyState>no Products</EmptyState>}
           </>
       )
     }

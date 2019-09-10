@@ -71,7 +71,7 @@ const Filters = ({
         onChange={(e: string) => onChange('department', e)}
       >
         {departments && departments.length && departments.map((dept: Department) => (
-          <Option value={dept._id}>{dept.name}</Option>
+          <Option key={dept._id} value={dept._id}>{dept.name}</Option>
         ))}
       </Select>
 
@@ -82,7 +82,7 @@ const Filters = ({
         onChange={(e: string) => onChange('promotions', e)}
       >
         {promotions && promotions.length && promotions.map(
-          (promo: Promotion) => <Option value={promo._id}>{promo.code}</Option>
+          (promo: Promotion) => <Option key={promo._id} value={promo._id}>{promo.code}</Option>
         )}
       </Select>
 
