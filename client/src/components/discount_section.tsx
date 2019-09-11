@@ -8,7 +8,7 @@ const DiscountSection = () => {
     <>
       <Container>
         <SmallText>department:</SmallText>
-        <SmallText>{product.department_id.name}</SmallText>
+        <SmallText>{product && product.department_id && product.department_id.name}</SmallText>
       </Container>
     </>
   );
