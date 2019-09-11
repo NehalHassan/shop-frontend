@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 import productsApi from '../api/products';
 import departmentsApi from '../api/departments';
 import promotionsApi from '../api/promotions';
 
 const WrapperLogic = ({ render }: any) => {
 
-  const pageSize = 4;
   const [count, setCount] = useState();
   const [currentPage, setCurrentPage] = useState(1)
   const [products, setProducts] = useState();
   const [promotions, setPromotions] = useState();
   const [departments, setDepartments] = useState();
   const [filterQuery, setFilterQuery] = useState({})
+  const pageSize = 4;
 
   // onpagination change
   const handleChangePage = async (page: number) => {
@@ -20,30 +20,28 @@ const WrapperLogic = ({ render }: any) => {
     }
   };
 
-  // fetch all products
-  const fetchProducts = async () => {
-    const { data } = await productsApi.fetchProductsCount(filterQuery);
-    const paginationSet = changePagination();
-    setCount(data);
-    productsApi.fetchProducts({...paginationSet, ...filterQuery})
-      .then(res => setProducts(res.data))
-      .catch(err => console.log(err));
-  };
-
-  // set skip and limit  for pagination
-  const changePagination = () => {
+  const changePagination = useCallback(() => {
     let skip = (currentPage - 1) * pageSize;
     return {
       skip,
       limit: pageSize,
-    };
-  };
+    }
+  }, [currentPage])
+
+  const fetchProducts = useCallback(async () => {
+    const { data } = await productsApi.fetchProductsCount(filterQuery);
+    const paginationSet = changePagination();
+    setCount(data);
+    productsApi.fetchProducts({ ...paginationSet, ...filterQuery })
+      .then((res: any) => setProducts(res.data))
+      .catch((err: any) => console.log(err));
+  }, [filterQuery, changePagination]);
 
   useEffect(() => {
     if (currentPage) {
       fetchProducts();
     }
-  }, [currentPage, filterQuery]);
+  }, [fetchProducts, currentPage]);
 
   useEffect(() => {
     departmentsApi.fetchDepartments().then(
@@ -54,7 +52,7 @@ const WrapperLogic = ({ render }: any) => {
     );
   }, []);
 
-  const setFilters = (filter: any, value: any) => {
+  const setFilters = (filter: string, value: string) => {
     let query = {};
     setCurrentPage(1);
     switch(filter){

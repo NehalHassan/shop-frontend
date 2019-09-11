@@ -5,7 +5,9 @@ import { ProductContext } from './content';
 const PriceSection = () => {
   const product: any = useContext(ProductContext);
 
-  const discountsArray = product.promotions.filter((promo: any) => promo.active).map((promo: any) => promo.discount)
+  const discountsArray = product.promotions.filter(
+    (promo: any) => promo.active
+    ).map((promo: any) => promo.discount);
   const hasDiscount = discountsArray.length > 0;
   const discountAmount = hasDiscount && discountsArray.reduce((a: number, b: number) => a + b);
 
@@ -15,10 +17,9 @@ const PriceSection = () => {
       return product.price - (product.price * discountAmount /100)
     }
   }
-  // console.log(product)
 
   return (
-    <>
+    <Container style={{ minHeight: '135px'}}>
       <Container>
         <PriceText isLineThrough={hasDiscount}>{product.price}</PriceText>
         <PriceText>{calcNewPrice()}</PriceText>
@@ -30,7 +31,7 @@ const PriceSection = () => {
           <PriceText smallText={true}>{discountAmount} % </PriceText>
         </Container>
       )}
-    </>
+    </Container>
   );
 };
 

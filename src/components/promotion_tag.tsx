@@ -9,7 +9,7 @@ const PromotionTags = () => {
   return (
     <Container>
       {product.promotions.map(
-        (promo: any) => <Tags key={promo._id}>{promo.code}</Tags>
+        (promo: any) => promo.active && <Tags key={promo._id}>{promo.code}</Tags>
       )}
     </Container>
   );

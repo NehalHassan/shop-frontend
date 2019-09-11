@@ -9,13 +9,13 @@ import { Product, Promotion, Department } from '../types';
 const Content = lazy(()=>import('../components/content'));
 export interface AppProps {
   products: Product[],
+  promotions: Promotion[],
+  departments: Department[],
   pageSize: number,
-  handleChangePage: (x: number) => void,
   currentPage: number,
   count: number,
+  handleChangePage: (x: number) => void,
   setFilters: (x: string, y: string) => void,
-  promotions: Promotion[],
-  departments: Department[]
 };
 
 const App = () => {

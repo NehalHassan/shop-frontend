@@ -25,6 +25,7 @@ const Filters = ({
   promotions,
   departments
 }: FiltersProps) => {
+
   const [filters, setFiltersValues] = useState({
     dept:'Departments',
     promo:'Promotion'

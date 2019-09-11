@@ -1,14 +1,26 @@
 import Api from '../axios';
 
-type Query = {
+interface CountQuery {
   skip?: Number,
   limit?: Number,
-  query?: any
+}
+
+interface FetchProductsQuery extends CountQuery {
+  query?: {
+    promotions?: {
+      $in: string
+    },
+    department_id?: string,
+    name?: {
+      $regex: string,
+      $options: string
+    }
+  }
 }
 
 const productsApi = {
-  fetchProductsCount: (query: Query) => Api.post('/products/count', query),
-  fetchProducts: (query: Query) => Api.post('/products', query),
+  fetchProductsCount: (query: CountQuery) => Api.post('/products/count', query),
+  fetchProducts: (query: FetchProductsQuery) => Api.post('/products', query),
 };
 
 export default productsApi;
